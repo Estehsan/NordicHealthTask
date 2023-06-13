@@ -3,7 +3,9 @@ import React from "react";
 import { H2 } from "./basic";
 
 const data = Array.from(
-  { length: 50 },
+  {
+    length: 20,
+  },
   (_, index) => `Medication ${index + 1}`
 );
 
