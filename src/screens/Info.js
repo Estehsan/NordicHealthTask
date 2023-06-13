@@ -9,16 +9,21 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import AnimatedHeader from "../components/AnimatedHeader";
 
 const Info = ({ route }) => {
+  const scrollX = useSharedValue(0);
   const scrollY = useSharedValue(0);
 
   const scrollHandler = useAnimatedScrollHandler((event) => {
+    scrollX.value = event.contentOffset.x;
     scrollY.value = event.contentOffset.y;
   });
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.main}>
       <AnimatedHeader
-        subtitle={"Welcome to the Medication App"}
+        subtitle={
+          "List of medications that you have been prescribed by your doctor."
+        }
         title={route.name}
+        scrollX={scrollX}
         scrollY={scrollY}
       />
       <Animated.ScrollView scrollEventThrottle={16} onScroll={scrollHandler}>
@@ -30,4 +35,9 @@ const Info = ({ route }) => {
 
 export default Info;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  main: {
+    flex: 1,
+    backgroundColor: "#fff",
+  },
+});

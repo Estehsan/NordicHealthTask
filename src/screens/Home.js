@@ -32,7 +32,7 @@ const Home = ({ route }) => {
   });
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.main}>
       <AnimatedHeader title={route.name} scrollY={scrollY} />
 
       <Animated.ScrollView scrollEventThrottle={16} onScroll={scrollHandler}>
@@ -59,6 +59,7 @@ export default Home;
 const styles = StyleSheet.create({
   main: {
     flex: 1,
+    backgroundColor: "#fff",
   },
   twoButton: {
     paddingVertical: 10,

@@ -18,7 +18,7 @@ function App() {
           options={{
             headerShown: false,
           }}
-          component={Home}
+        component={Home}
         />
         <Stack.Screen
           name="Info"

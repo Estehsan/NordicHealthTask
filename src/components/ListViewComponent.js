@@ -3,9 +3,7 @@ import React from "react";
 import { H2 } from "./basic";
 
 const data = Array.from(
-  {
-    length: 20,
-  },
+  { length: 20 },
   (_, index) => `Medication ${index + 1}`
 );
 
@@ -35,6 +33,15 @@ const styles = StyleSheet.create({
   main: {
     flex: 1,
     paddingHorizontal: 20,
+    borderRadius: 20,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowRadius: 3.84,
+
+    elevation: 5,
   },
   listItem: {
     paddingVertical: 10,
@@ -45,7 +52,6 @@ const styles = StyleSheet.create({
   listItemText: {
     fontSize: 17,
     opacity: 0.7,
-    backgroundColor: "#fff",
     marginVertical: 5,
     paddingHorizontal: 10,
     fontWeight: "bold",
