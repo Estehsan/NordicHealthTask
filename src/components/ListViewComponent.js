@@ -11,7 +11,7 @@ const data = Array.from(
 
 const ListViewComponent = () => {
   return (
-    <View>
+    <View style={styles.main}>
       <H2>Medication List</H2>
 
       <FlatList
@@ -32,6 +32,10 @@ const renderItem = ({ item }) => (
 export default ListViewComponent;
 
 const styles = StyleSheet.create({
+  main: {
+    flex: 1,
+    paddingHorizontal: 20,
+  },
   listItem: {
     paddingVertical: 10,
     paddingHorizontal: 20,

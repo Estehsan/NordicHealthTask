@@ -1,31 +1,25 @@
-import { StyleSheet, Text, View } from "react-native";
 import React from "react";
+import { StyleSheet, TouchableOpacity, View, Text } from "react-native";
 import Animated, {
   Extrapolate,
   interpolate,
-  useAnimatedScrollHandler,
   useAnimatedStyle,
   useSharedValue,
 } from "react-native-reanimated";
+import { H1, H2, H3 } from "../components/basic";
+import { useNavigation } from "@react-navigation/native";
+import { AntDesign } from "@expo/vector-icons";
 
-const AnimatedHeader = () => {
-  const navigationRef = useNavigationContainerRef();
-
-  const scrollY = useSharedValue(0);
-
-  const scrollHandler = useAnimatedScrollHandler((event) => {
-    scrollY.value = event.contentOffset.y;
-  });
-
+const AnimatedHeader = ({ title, scrollY, subtitle }) => {
+  const navigation = useNavigation();
   const fontStyles = useAnimatedStyle(() => {
     return {
       transform: [
         {
-          // From big to small size
           scale: interpolate(
             scrollY.value,
             [0, 30],
-            [1, 0.9], // Updated range from 1 to 0.5
+            [1, 0.9],
             Extrapolate.CLAMP
           ),
         },
@@ -36,26 +30,45 @@ const AnimatedHeader = () => {
   return (
     <Animated.View
       style={[
+        styles.animatedView,
         {
           paddingHorizontal: 20,
-          borderRadius: 10,
-          marginVertical: 10,
-          shadowColor: "#fff",
-          shadowOffset: {
-            width: 0,
-            height: 3,
-          },
-          shadowOpacity: 0.27,
-          shadowRadius: 4.65,
-          elevation: 6,
+          flexDirection: "row",
+          alignItems: "center",
         },
         fontStyles,
       ]}>
-      <H2>{route.name}</H2>
+      {subtitle ? (
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <AntDesign name="left" size={24} color="#125763" />
+        </TouchableOpacity>
+      ) : null}
+      <View
+        style={
+          subtitle
+            ? styles.containerText
+            : { flex: 1, paddingHorizontal: 20, alignItems: "center" }
+        }>
+        <H2>{title}</H2>
+
+        {subtitle ? <H3>{subtitle}</H3> : null}
+      </View>
     </Animated.View>
   );
 };
 
 export default AnimatedHeader;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  animatedView: {
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 10,
+    marginVertical: 10,
+  },
+  containerText: {
+    flex: 1,
+    paddingHorizontal: 20,
+    alignItems: "flex-start", // Aligns the content to the left
+  },
+});

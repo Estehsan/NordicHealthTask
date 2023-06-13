@@ -1,20 +1,20 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 
-const H1 = ({ children, color }) => {
+const H3 = ({ children, color }) => {
   return (
-    <Text style={color ? [styles.h1, { color: color }] : styles.h1}>
+    <Text style={color ? [styles.h3, { color: color }] : styles.h3}>
       {children}
     </Text>
   );
 };
 
-export default H1;
+export default H3;
 
 const styles = StyleSheet.create({
-  h1: {
-    fontSize: 30,
+  h3: {
+    fontSize: 15,
+    opacity: 0.7,
     fontWeight: "bold",
-    paddingVertical: 10,
   },
 });
