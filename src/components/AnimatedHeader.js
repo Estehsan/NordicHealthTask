@@ -10,7 +10,7 @@ import { H1, H2, H3 } from "../components/basic";
 import { useNavigation } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";
 
-const AnimatedHeader = ({ title, scrollY, scrollX, subtitle }) => {
+const AnimatedHeader = ({ title, scrollY, subtitle }) => {
   const navigation = useNavigation();
   const fontStyles = useAnimatedStyle(() => {
     const translateX = interpolate(

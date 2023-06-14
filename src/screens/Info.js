@@ -9,11 +9,9 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import AnimatedHeader from "../components/AnimatedHeader";
 
 const Info = ({ route }) => {
-  const scrollX = useSharedValue(0);
   const scrollY = useSharedValue(0);
 
   const scrollHandler = useAnimatedScrollHandler((event) => {
-    scrollX.value = event.contentOffset.x;
     scrollY.value = event.contentOffset.y;
   });
   return (
@@ -23,7 +21,6 @@ const Info = ({ route }) => {
           "List of medications that you have been prescribed by your doctor."
         }
         title={route.name}
-        scrollX={scrollX}
         scrollY={scrollY}
       />
       <Animated.ScrollView scrollEventThrottle={16} onScroll={scrollHandler}>
