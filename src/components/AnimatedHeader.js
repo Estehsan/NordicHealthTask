@@ -12,14 +12,15 @@ import { AntDesign } from "@expo/vector-icons";
 
 const AnimatedHeader = ({ title, scrollY, subtitle }) => {
   const navigation = useNavigation();
-  const fontStyles = useAnimatedStyle(() => {
+
+  const AllAnimation = useAnimatedStyle(() => {
+    // Calculate translateX and scale based on scrollY value
     const translateX = interpolate(
       scrollY.value,
       [0, 100],
-      [0, -30],
+      [0, -38],
       Extrapolate.CLAMP
     );
-
     const scale = interpolate(
       scrollY.value,
       [0, 100],
@@ -27,30 +28,32 @@ const AnimatedHeader = ({ title, scrollY, subtitle }) => {
       Extrapolate.CLAMP
     );
 
+    // Calculate fontSize and paddingBottom based on scale
+    const fontSize = interpolate(scale, [0.8, 1], [18, 24], Extrapolate.CLAMP);
+    const paddingBottom = interpolate(
+      fontSize,
+      [18, 24],
+      [5, 10],
+      Extrapolate.CLAMP
+    );
+
     return {
       transform: [{ translateX }, { scale }],
+      fontSize,
+      paddingBottom,
     };
   });
 
   return (
     <View style={styles.main}>
-      <Animated.View
-        style={[
-          styles.animatedView,
-          {
-            paddingHorizontal: 20,
-            flexDirection: "row",
-            alignItems: "center",
-          },
-          fontStyles,
-        ]}>
+      <Animated.View style={[styles.animatedView, AllAnimation]}>
         {subtitle ? (
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <AntDesign name="left" size={24} color="#125763" />
           </TouchableOpacity>
         ) : null}
         <View style={styles.containerText}>
-          <H2>{title}</H2>
+          <Animated.Text style={styles.headerText}>{title}</Animated.Text>
           {subtitle ? <H3>{subtitle}</H3> : null}
         </View>
       </Animated.View>
@@ -63,11 +66,9 @@ export default AnimatedHeader;
 const styles = StyleSheet.create({
   main: {
     backgroundColor: "white",
-    backgroundColor: "white",
     shadowColor: "#125763",
     borderBottomColor: "#fff",
     borderBottomWidth: 1,
-
     shadowOffset: {
       width: 0,
       height: 9,
@@ -76,16 +77,20 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
   },
-
   animatedView: {
     paddingVertical: 10,
-    paddingHorizontal: 20,
     borderRadius: 10,
     marginVertical: 10,
+    paddingHorizontal: 20,
+    flexDirection: "row",
+    alignItems: "center",
   },
   containerText: {
     flex: 1,
     paddingHorizontal: 20,
-    alignItems: "flex-start", // Aligns the content to the left
+    alignItems: "flex-start",
+  },
+  headerText: {
+    fontSize: 30,
   },
 });
